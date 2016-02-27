@@ -1,0 +1,22 @@
+{
+  "name": "icoachmbk",
+  "version": "1.0.0",
+  "description": "student messaging app for mbk 2016 hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fvntr/iCoachMBK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fvntr/iCoachMBK/issues"
+  },
+  "homepage": "https://github.com/fvntr/iCoachMBK#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
