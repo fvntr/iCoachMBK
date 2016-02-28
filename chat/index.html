@@ -262,6 +262,9 @@
                     else if (message.role == 'teacher'){
                       userPhotoUrl = '../assets/teacher-pic'
                     }
+                    else if (message.role == 'bot'){
+                      userPhotoUrl = '../assets/bot-pic.png'
+                    }
                     
 
                      $("#incomingMessages").append(
@@ -284,14 +287,19 @@
                 }else{
                     grade = message.text
 
-
                     $("#incomingMessages").append(
-                       "<div class='message'><span class='username'>" +
-                       ('Bot') +
-                       "</span> : " +
-                       ('The grade of your last assignment is '+grade+' and your GPA has been updated') +
-                       "</div>"
-                    );
+                     "<div class='message'>" +
+                      "<div class='userNameSection'>" +
+                      "<span class='username'>" +
+                       message.role +         
+                      "</span>" +
+                      "<div>"+
+                      "<div class='userMessageSection'>" +
+                      "<img src='" + 
+                      userPhotoUrl + "''>" +
+                      "<div class='" + bubble + "'>" +
+                        'The grade of your last assignment is '+grade+' and your GPA has been updated' +
+                      "</div>");
 
                     $("#gpaAverage").text('3.6') ;
                     $("#incomingMessages").scrollTop(
