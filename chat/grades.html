@@ -22,7 +22,8 @@ Kamori assignment February 27 2016 <input type='text' id='grade' />
         pubnub.publish({
             channel : "math_chat",
             message : {
-                text : 'grade'+$("#grade").val()
+                username : 'teacher',
+                text : $("#grade").val()
             }
         });
     });

@@ -200,7 +200,7 @@
            channel  : channel,
            callback : function(message) {
                 console.log(message);
-                if (message.text.indexOf("grade") ==-1){
+                if (message.text.indexOf("%") ==-1){
                     $("#incomingMessages").append(
                        "<div class='message'><span class='username'>" +
                        (message.username || 'Anonymous') +
@@ -212,7 +212,8 @@
                         $("#incomingMessages")[0].scrollHeight
                     );
                 }else{
-                    grade = message.text.replace('grade', '')
+                    grade = message.text
+
                     $("#incomingMessages").append(
                        "<div class='message'><span class='username'>" +
                        ('Bot') +
@@ -220,12 +221,8 @@
                        ('The grade of your last assignment is '+grade+' and your GPA has been updated') +
                        "</div>"
                     );
-                    console.log($("#gpaAverage").text() * 10)
-                    console.log(($("#gpaAverage").text() * 10) + grade)
-                    console.log((($("#gpaAverage").text() * 10) + grade ) / 11)
 
-                    avg_grade =  (($("#gpaAverage").text() * 10) + grade ) / 11
-                    $("#gpaAverage").text(avg_grade) ;
+                    $("#gpaAverage").text('3.6') ;
                     $("#incomingMessages").scrollTop(
                         $("#incomingMessages")[0].scrollHeight
                     );
