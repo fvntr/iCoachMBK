@@ -24,6 +24,10 @@
            overflow-y: scroll;
            height: 300px;
        }
+
+       .floating-box {
+            display: inline-block;
+        }
    </style>
 </head>
 <body>
@@ -33,9 +37,14 @@
 
    <div data-role="page" id="chatPage" data-role="page" data-theme="b">
 
-       <div data-role="header" data-theme="b">
-           <h1>Math Class Chat ;)</h1>
-       </div>
+        <div id='profile' style='visibility: visible;'>
+           <div class="floating-box">
+               <img src='http://graph.facebook.com/1396881577/picture?type=square' style='border-radius: 50%'>
+           </div>
+           <div class="floating-box">
+            <div class="floating-box"><b>GPA: </b></div><div class="floating-box" id='gpa' name='gpa'>3.5</div>
+           </div>
+        </div>
 
        <div data-role="content">
        <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
@@ -44,7 +53,7 @@
 
        <fieldset class="ui-grid-a">
            <div class="ui-block-a"><textarea id="messageText"></textarea></div>
-           <div class="ui-block-c"><button data-theme="b" id="chatSendButton" name="chatSendButton">Send</input>
+           <div class="ui-block-c"><button data-theme="b" id="chatSendButton" name="chatSendButton">Send</div>
        </fieldset>
        </div>
 
@@ -57,26 +66,43 @@
         var role = location.search.split('role=')[1];
         var chatName = "Math chat";
         var channel  = "math_chat";
+        var gpa = 3.5
     
 
         pubnub = PUBNUB({                          
             publish_key   : 'pub-c-fc26f3bd-29d8-41bf-8321-62e232e89b95',
             subscribe_key : 'sub-c-1bcd79be-ddb0-11e5-a046-0619f8945a4f'
-    })
+        })
 
-       pubnub.subscribe({
+        pubnub.subscribe({
            channel  : channel,
            callback : function(message) {
-               $("#incomingMessages").append(
-                   "<div class='message'><span class='username'>" +
-                   (role || 'Anonymous') +
-                   "</span> : " +
-                   (message.text || ' ') +
-                   "</div>"
-               );
-               $("#incomingMessages").scrollTop(
-                   $("#incomingMessages")[0].scrollHeight
-               );
+                if (message.text.indexOf("grade") ==-1){
+                    $("#incomingMessages").append(
+                       "<div class='message'><span class='username'>" +
+                       (message.username || 'Anonymous') +
+                       "</span> : " +
+                       (message.text || ' ') +
+                       "</div>"
+                    );
+                    $("#incomingMessages").scrollTop(
+                        $("#incomingMessages")[0].scrollHeight
+                    );
+                }else{
+                    grade = message.text.replace('grade', '')
+                    $("#incomingMessages").append(
+                       "<div class='message'><span class='username'>" +
+                       ('Bot') +
+                       "</span> : " +
+                       ('The grade of your last assignment is '+grade+' and your GPA is updated now') +
+                       "</div>"
+                    );
+
+                    $("#gpa").append(( ($("#gpa").val() / 10) + grade ) * 11);
+                    $("#incomingMessages").scrollTop(
+                        $("#incomingMessages")[0].scrollHeight
+                    );
+                }
            }
        });
 
@@ -91,7 +117,7 @@
            pubnub.publish({
                channel : channel,
                message : {
-                    chatName : chatName,
+                    username : role,
                     text     : $("#messageText").val()
                 }
            });
