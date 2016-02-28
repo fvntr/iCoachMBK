@@ -260,7 +260,7 @@
                       userPhotoUrl ='../assets/student-pic.png'
                     }
                     else if (message.role == 'teacher'){
-                      userPhotoUrl = '../assets/teacher-pic'
+                      userPhotoUrl = '../assets/teacher-pic-1.png'
                     }
                     else if (message.role == 'bot'){
                       userPhotoUrl = '../assets/bot-pic.png'
@@ -286,6 +286,7 @@
                     );
                 }else{
                     grade = message.text
+                    userPhotoUrl = '../assets/bot-pic.png'
 
                     $("#incomingMessages").append(
                      "<div class='message'>" +
