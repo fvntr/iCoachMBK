@@ -10,7 +10,6 @@
 
    <link rel=apple-touch-icon href=icon.png>
    <link rel=apple-touch-startup-image href=startup.png>
-   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
    <style>
 
@@ -66,6 +65,11 @@
         #studentActivities{
             text-align: center;
             font-family: 'Permanent Marker';
+        }
+
+        #studentInfoSection{
+            border-bottom: 1px solid #888;
+            padding-bottom: 10px;
         }
 
         #member_list li img{
@@ -186,6 +190,7 @@
         var gpa = 3.5
     
 
+
         pubnub = PUBNUB({                          
             publish_key   : 'pub-c-fc26f3bd-29d8-41bf-8321-62e232e89b95',
             subscribe_key : 'sub-c-1bcd79be-ddb0-11e5-a046-0619f8945a4f'
@@ -212,11 +217,15 @@
                        "<div class='message'><span class='username'>" +
                        ('Bot') +
                        "</span> : " +
-                       ('The grade of your last assignment is '+grade+' and your GPA is updated now') +
+                       ('The grade of your last assignment is '+grade+' and your GPA has been updated') +
                        "</div>"
                     );
+                    console.log($("#gpaAverage").text() * 10)
+                    console.log(($("#gpaAverage").text() * 10) + grade)
+                    console.log((($("#gpaAverage").text() * 10) + grade ) / 11)
 
-                    $("#gpa").append(( ($("#gpa").val() / 10) + grade ) * 11);
+                    avg_grade =  (($("#gpaAverage").text() * 10) + grade ) / 11
+                    $("#gpaAverage").text(avg_grade) ;
                     $("#incomingMessages").scrollTop(
                         $("#incomingMessages")[0].scrollHeight
                     );
@@ -224,7 +233,8 @@
            }
        });
 
-       $("#send_button").click(function(){
+
+        $("#send_button").click(function(){
            pubnub.publish({
                channel : channel,
                message : {
