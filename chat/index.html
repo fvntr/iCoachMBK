@@ -13,8 +13,11 @@
    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
    <style>
+
+        
+
        .message {
-           padding: 5px 5px 5px 5px;
+           background-color: "#333"
        }
        .username {
            font-weight: strong;
@@ -22,14 +25,14 @@
        }
        .msgContainerDiv {
            overflow-y: scroll;
-           height: 300px;
+           height: 200px;
        }
 
        .floating-box {
             display: inline-block;
         }
 
-        #studentName{
+        .title-header{
           text-align: center;
           font-family: 'Permanent Marker';
           font-size: 32px;
@@ -42,49 +45,134 @@
           text-shadow: none !important;
         }
 
-        .profilePic {
-          width: 200px;
+        #profilePic {
+          width: 100px;
+          margin-top: 10px;
+          margin-left: 25px;
+        }
+
+        .stat {
+            width: 70px;
+        }
+
+        .stat_no{
+            font-size: 50px;
+        }
+
+        #gpaSection{
+            margin: 0px 30px 10px 25px;
+        }
+
+        #studentActivities{
+            text-align: center;
+            font-family: 'Permanent Marker';
+        }
+
+        #member_list li img{
+            width: 60px;
+        }
+
+        #member_list{
+            list-style-type: none;
+            border-bottom: 1px solid #888;
+            padding-bottom: 10px;
+            /*width: 400px;*/
+            /*overflow-x: scroll;*/
+        }
+        #member_list li{
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        #date_stamp{
+            text-align: center;
+            background-color: #999;
+            text-shadow: none !important;
+            font-size: 22px;
+            margin: 0px 80px 0px 80px;
+            padding: 5px 0px 5px 0px;
+            font-family: 'helvetica';
+        }
+
+        #chatSendButton{
+
+        }
+
+        #input_area{
+            border-top: 1px solid #333;
+        }
+        #input_area input{
+            width: 70%;
+            font-size: 32px;
+            border: none;
+            display: inline-block;
+        }
+
+        #send_button{
+            display: inline-block;
+            width: 40px;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-image: url("../assets/send-button.png");
+            text-indent: -9999px;
+            height: 40px;
+
         }
 
    </style>
 </head>
 <body>
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script> -->
     <script src="http://cdn.pubnub.com/pubnub-3.13.0.min.js"></script>
 
    <div data-role="page" id="chatPage">
 
-      <div data-role="header">
+      <div id='profile' data-role="header">
           <div>
-            <span id="studentName">JACOB</span>
+            <span class="title-header">KAMORI</span>
           </div>
-          <div id="studentInfoSection">
-              <div id="studentPhoto">
-                <img class="profilePic" src="../assets/student-pic.png"> 
+          <div id="studentInfoSection" >
+              <div id="studentPhoto" class='floating-box'>
+                <img id="profilePic" src="../assets/student-pic.png"> 
               </div>
-              <div id="studentActivities">
-                <div id="gpaSection">
-                      <span id="gpaAverage"> 4.0 </span>
+              <div id="studentActivities" class='floating-box'>
+                <div id="gpaSection" class='stat floating-box'>
+                      <span id="gpaAverage" class='stat_no'> 4.0 </span>
                       <span id="gpaTitle"> GPA</span>
                 </div>
-                <div id="classSection">
-                      <span id="numClasses"> 6.0 </span>
-                      <span id="classesTitle"> Classes</span>
+                <div id="classSection" class='stat floating-box'>
+                      <span id="numClasses" class='stat_no'> 6 </span>
+                      <span id="classesTitle"> CLASSES</span>
                 </div>
               </div>
           </div>
        </div>
+       <ul id="member_list">
+        <li><img src='../assets/coach-pic.png'></li>
+        <li><img src='../assets/parent-pic.png'></li>
+        <li><img src='../assets/teacher-pic-1.png'></li>
+        <li><img src='../assets/teacher-pic-2.png'></li>
+       </ul>
+
+       <div id="date_stamp">
+            today @ 1:00pm
+       </div>
 
        <div data-role="content">
        <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
-       <label for="messageText"><strong>Message:</strong></label>
-       
 
-       <fieldset class="ui-grid-a">
+        <div id='input_area'>
+            <input id='my_message' type='text' placeholder="chat with us!" />
+            <div id="send_button">
+            Send
+            </div>
+        </div>       
+        <!--<fieldset class="ui-grid-a">
            <div class="ui-block-a"><textarea id="messageText"></textarea></div>
-           <div class="ui-block-c"><button data-theme="b" id="chatSendButton" name="chatSendButton">Send</div>
-       </fieldset>
+           <div class="ui-block-c"><button id="chatSendButton" name="chatSendButton">Send</div>
+       </fieldset> -->
        </div>
 
    </div>
@@ -94,7 +182,6 @@
    <script>$(document).ready(function(){
 
         var role = location.search.split('role=')[1];
-        var chatName = "Math chat";
         var channel  = "math_chat";
         var gpa = 3.5
     
@@ -107,6 +194,7 @@
         pubnub.subscribe({
            channel  : channel,
            callback : function(message) {
+                console.log(message);
                 if (message.text.indexOf("grade") ==-1){
                     $("#incomingMessages").append(
                        "<div class='message'><span class='username'>" +
@@ -136,22 +224,15 @@
            }
        });
 
-
-       $("#messageText").bind( 'keydown', function(e) {
-           if ((e.keyCode || e.charCode) !== 13) return true;
-           $("#chatSendButton").click();
-           return false;
-       });
-
-       $("#chatSendButton").click(function(){
+       $("#send_button").click(function(){
            pubnub.publish({
                channel : channel,
                message : {
                     username : role,
-                    text     : $("#messageText").val()
+                    text     : $("#my_message").val()
                 }
            });
-           $("#messageText").val("");
+           $("#my_message").val("");
        });
 
    });</script>
