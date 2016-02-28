@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-   <title>Math Class Chat</title>
+   <title>GradeChat: Kamori</title>
    <meta http-equiv=content-type content=text/html;charset=utf-8>
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -80,6 +80,13 @@
             /*width: 400px;*/
             /*overflow-x: scroll;*/
         }
+
+        #incomingMessages{
+
+          padding-bottom: 1000px;
+        } 
+
+
         #member_list li{
             display: inline-block;
             margin-right: 10px;
@@ -101,15 +108,18 @@
 
         #input_area{
             border-top: 1px solid #333;
+            background-color: rgba(255,255,255,.9);
             position: fixed;
-            margin-bottom: -8px;
-            background-color: rgba(255,255,255,1);
+            bottom: 0;
+            margin: 0 auto;
         }
         #input_area input{
             width: 70%;
             font-size: 32px;
             border: none;
             display: inline-block;
+            background-color: transparent;
+
 
         }
 
