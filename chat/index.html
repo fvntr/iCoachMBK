@@ -13,8 +13,6 @@
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
    <style>
 
-        
-
        .message {
            background-color: "#333"
        }
@@ -23,8 +21,7 @@
            color: #011000;
        }
        .msgContainerDiv {
-           overflow-y: scroll;
-           height: 200px;
+      
        }
 
        .floating-box {
@@ -110,6 +107,8 @@
             font-size: 32px;
             border: none;
             display: inline-block;
+            position: absolute;
+            margin-bottom: 0px;
         }
 
         #send_button{
@@ -122,6 +121,30 @@
             height: 40px;
 
         }
+
+      .message img {
+       width: 50px;
+      }
+
+      .messageBubble {
+        color: #eee;
+        background-color: #299176;
+        font-size: 22px;
+        font-family: "helvetica";
+        padding: 15px ;
+          border-radius: 10px;
+        float:right;        
+        width: 260px;
+      }
+
+      .username {
+        font-family: "helvetica";
+      }
+
+      .message {
+        margin-top: 20px;
+        display: block;
+      }
 
    </style>
 </head>
@@ -165,7 +188,39 @@
        </div>
 
        <div data-role="content">
-       <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
+       <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" >
+          <div class='message'>
+            <div class="userNameSection">
+              <span class='username'> 
+                     Mom
+              </span> 
+            <div>
+            <div class="userMessageSection">
+              <img src="../assets/parent-pic.png">
+              <div class="messageBubble">
+                         ('The grade of your last assignment is '+grade+' and your GPA is updated now') 
+              </div>
+            </div>
+          </div>
+          <div class='message'>
+            <div class="userNameSection">
+              <span class='username'> 
+                     Mom
+              </span> 
+            <div>
+            <div class="userMessageSection">
+              <img src="../assets/coach-pic.png">
+              <div class="messageBubble">
+                         ('The grade of your last assignment is '+grade+' and your GPA is updated now') 
+              </div>
+            </div>
+          </div>
+   
+   
+
+       </div>
+       <label for="messageText"><strong>Message:</strong></label>
+       
 
         <div id='input_area'>
             <input id='my_message' type='text' placeholder="chat with us!" />
@@ -201,10 +256,26 @@
            callback : function(message) {
                 console.log(message);
                 if (message.text.indexOf("grade") ==-1){
+                    var userPhotoUrl = 'Anonymous';
+                    if(role == 'mom'){
+                      userPhotoUrl ='../assets/parent-pic.png'
+                    }
+                    else if (role == 'coach'){
+                       userPhotoUrl ='../assets/coach-pic.png'
+                    }
+                    else if (role == 'student'){
+                      userPhotoUrl ='../assets/student-pic.png'
+                    }
+                    else if (role == 'teacher'){
+                      userPhotoUrl = '../assets/teacher-pic'
+                    }
+                    
+                    w
                     $("#incomingMessages").append(
                        "<div class='message'><span class='username'>" +
                        (message.username || 'Anonymous') +
                        "</span> : " +
+                       "<img src='" + userPhotoUrl +"' class ='msgPhoto'>" +
                        (message.text || ' ') +
                        "</div>"
                     );
