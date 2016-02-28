@@ -249,17 +249,17 @@
                 }
                 if (message.text.indexOf("%") ==-1){
                     var userPhotoUrl = 'Anonymous';
-                
-                    if(role == 'mom'){
+                    
+                    if(message.role == 'mom'){
                       userPhotoUrl ='../assets/parent-pic.png'
                     }
-                    else if (role == 'coach'){
+                    else if (message.role == 'coach'){
                        userPhotoUrl ='../assets/coach-pic.png'
                     }
-                    else if (role == 'student'){
+                    else if (message.role == 'student'){
                       userPhotoUrl ='../assets/student-pic.png'
                     }
-                    else if (role == 'teacher'){
+                    else if (message.role == 'teacher'){
                       userPhotoUrl = '../assets/teacher-pic'
                     }
                     
