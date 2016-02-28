@@ -1,0 +1,28 @@
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://cdn.pubnub.com/pubnub-3.13.0.min.js"></script>
+</head>
+
+Mark Zukkenberg assignment February 27 2016 <input type='text' id='grade' />
+<button id='send_grade'>Grade</input>
+
+
+
+<script>
+
+    pubnub = PUBNUB({                          
+            publish_key   : 'pub-c-fc26f3bd-29d8-41bf-8321-62e232e89b95',
+            subscribe_key : 'sub-c-1bcd79be-ddb0-11e5-a046-0619f8945a4f'
+        })
+
+    $("#send_grade").click(function(){
+        pubnub.publish({
+            channel : "math_chat",
+            message : {
+                text : 'grade'+$("#grade").val()
+            }
+        });
+    });
+</script>
+</html>
