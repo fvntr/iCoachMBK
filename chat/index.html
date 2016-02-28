@@ -11,13 +11,13 @@
    <link rel=apple-touch-icon href=icon.png>
    <link rel=apple-touch-startup-image href=startup.png>
    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-
+   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
    <style>
        .message {
            padding: 5px 5px 5px 5px;
        }
        .username {
-           /*font-weight: strong;*/
+           font-weight: strong;
            color: #011000;
        }
        .msgContainerDiv {
@@ -28,6 +28,24 @@
        .floating-box {
             display: inline-block;
         }
+
+        #studentName{
+          text-align: center;
+          font-family: 'Permanent Marker';
+          font-size: 32px;
+          color: black;
+          display: block;
+          height: 50px;
+          background-color: #888;
+          padding-top: 10px;
+          padding-bottom: 5px;
+          text-shadow: none !important;
+        }
+
+        .profilePic {
+          width: 200px;
+        }
+
    </style>
 </head>
 <body>
@@ -35,16 +53,15 @@
     <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-3.13.0.min.js"></script>
 
-   <div data-role="page" id="chatPage" data-role="page">
+   <div data-role="page" id="chatPage">
 
       <div data-role="header">
-          <div id="studentName">
-           <span id="studentName">JACOB</span>
+          <div>
+            <span id="studentName">JACOB</span>
           </div>
           <div id="studentInfoSection">
               <div id="studentPhoto">
-                <img src="images/head_shots/student_headshot.jpeg">
-                
+                <img class="profilePic" src="../assets/student-pic.png"> 
               </div>
               <div id="studentActivities">
                 <div id="gpaSection">
