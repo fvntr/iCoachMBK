@@ -144,7 +144,7 @@
         font-size: 22px;
         font-family: "helvetica";
         padding: 15px ;
-          border-radius: 10px;
+        border-radius: 10px;
         float:right;        
         width: 260px;
       }
@@ -283,13 +283,14 @@
                       "<span class='username'>" +
                        message.role +         
                       "</span>" +
-                      "<div>"+
+                      "</div>"+
                       "<div class='userMessageSection'>" +
                       "<img src='" + 
                       userPhotoUrl + "''>" +
                       "<div class='" + bubble + "'>" +
                         message.text +
-                      "</div>");
+                      "</div>" +"</div>"
+                      );
             
                     $("#incomingMessages").scrollTop(
                         $("#incomingMessages")[0].scrollHeight
@@ -304,13 +305,14 @@
                       "<span class='username'>" +
                        message.role +         
                       "</span>" +
-                      "<div>"+
+                      "</div>"+
                       "<div class='userMessageSection'>" +
                       "<img src='" + 
                       userPhotoUrl + "''>" +
                       "<div class='" + bubble + "'>" +
                         'The grade of your last assignment is '+grade+' and your GPA has been updated' +
-                      "</div>");
+                      "</div>" +"</div>"
+                      );
 
                     $("#gpaAverage").text('3.6') ;
                     $("#incomingMessages").scrollTop(
