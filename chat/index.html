@@ -18,7 +18,7 @@
        }
        .username {
            font-weight: strong;
-           color: #0f0;
+           color: #011000;
        }
        .msgContainerDiv {
            overflow-y: scroll;
@@ -31,9 +31,9 @@
     <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-3.13.0.min.js"></script>
 
-   <div data-role="page" id="chatPage" data-role="page" data-theme="a">
+   <div data-role="page" id="chatPage" data-role="page" data-theme="b">
 
-       <div data-role="header">
+       <div data-role="header" data-theme="b">
            <h1>Math Class Chat ;)</h1>
        </div>
 
@@ -44,7 +44,7 @@
 
        <fieldset class="ui-grid-a">
            <div class="ui-block-a"><textarea id="messageText"></textarea></div>
-           <div class="ui-block-c"><button data-theme="a" id="chatSendButton" name="chatSendButton">Send</input>
+           <div class="ui-block-c"><button data-theme="b" id="chatSendButton" name="chatSendButton">Send</input>
        </fieldset>
        </div>
 
@@ -54,8 +54,10 @@
 
    <script>$(document).ready(function(){
 
-       var chatName = "Math chat"
-       ,   channel  = "math_chat";
+        var role = location.search.split('role=')[1];
+        var chatName = "Math chat";
+        var channel  = "math_chat";
+    
 
         pubnub = PUBNUB({                          
             publish_key   : 'pub-c-fc26f3bd-29d8-41bf-8321-62e232e89b95',
@@ -67,7 +69,7 @@
            callback : function(message) {
                $("#incomingMessages").append(
                    "<div class='message'><span class='username'>" +
-                   (message.chatName || 'Anonymous') +
+                   (role || 'Anonymous') +
                    "</span> : " +
                    (message.text || ' ') +
                    "</div>"
