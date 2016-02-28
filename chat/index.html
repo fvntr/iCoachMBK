@@ -35,16 +35,29 @@
     <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-3.13.0.min.js"></script>
 
-   <div data-role="page" id="chatPage" data-role="page" data-theme="b">
+   <div data-role="page" id="chatPage" data-role="page">
 
-        <div id='profile' style='visibility: visible;'>
-           <div class="floating-box">
-               <img src='http://graph.facebook.com/1396881577/picture?type=square' style='border-radius: 50%'>
-           </div>
-           <div class="floating-box">
-            <div class="floating-box"><b>GPA: </b></div><div class="floating-box" id='gpa' name='gpa'>3.5</div>
-           </div>
-        </div>
+      <div data-role="header">
+          <div id="studentName">
+           <span id="studentName">KAMORI</span>
+          </div>
+          <div id="studentInfoSection">
+              <div id="studentPhoto">
+                <img src="images/head_shots/student_headshot.jpeg">
+                
+              </div>
+              <div id="studentActivities">
+                <div id="gpaSection">
+                      <span id="gpaAverage"> 4.0 </span>
+                      <span id="gpaTitle"> GPA</span>
+                </div>
+                <div id="classSection">
+                      <span id="numClasses"> 6.0 </span>
+                      <span id="classesTitle"> Classes</span>
+                </div>
+              </div>
+          </div>
+       </div>
 
        <div data-role="content">
        <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
