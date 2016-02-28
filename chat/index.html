@@ -101,14 +101,16 @@
 
         #input_area{
             border-top: 1px solid #333;
+            position: fixed;
+            margin-bottom: -8px;
+            background-color: rgba(255,255,255,1);
         }
         #input_area input{
             width: 70%;
             font-size: 32px;
             border: none;
             display: inline-block;
-            position: absolute;
-            margin-bottom: 0px;
+
         }
 
         #send_button{
@@ -200,37 +202,9 @@
 
        <div data-role="content">
        <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" >
-          <div class='message'>
-            <div class="userNameSection">
-              <span class='username'> 
-                     Mom
-              </span> 
-            <div>
-            <div class="userMessageSection">
-              <img src="../assets/parent-pic.png">
-              <div class="messageBubble">
-                         ('The grade of your last assignment is '+grade+' and your GPA is updated now') 
-              </div>
-            </div>
-          </div>
-          <div class='message'>
-            <div class="userNameSection">
-              <span class='username'> 
-                     Mom
-              </span> 
-            <div>
-            <div class="userMessageSection">
-              <img src="../assets/coach-pic.png">
-              <div class="messageBubble">
-                         ('The grade of your last assignment is '+grade+' and your GPA is updated now') 
-              </div>
-            </div>
-          </div>
-   
-   
+          
 
        </div>
-       <label for="messageText"><strong>Message:</strong></label>
        
 
         <div id='input_area'>
@@ -254,7 +228,9 @@
         var role = location.search.split('role=')[1];
         var channel  = "math_chat";
         var gpa = 3.5
-    
+        console.log(role)
+
+       
 
 
         pubnub = PUBNUB({                          
@@ -267,12 +243,13 @@
            callback : function(message) {
                 console.log(message);
                 if (message.role == role){
-                    bouble = 'messageSentBubble'        
+                    bubble = 'messageSentBubble'        
                 }else{
-                    bouble = 'messageReceivedBubble'
+                    bubble = 'messageReceivedBubble'
                 }
                 if (message.text.indexOf("%") ==-1){
                     var userPhotoUrl = 'Anonymous';
+                
                     if(role == 'mom'){
                       userPhotoUrl ='../assets/parent-pic.png'
                     }
@@ -286,14 +263,21 @@
                       userPhotoUrl = '../assets/teacher-pic'
                     }
                     
-                    $("#incomingMessages").append(
-                       "<div class='message'><span class='username'>" +
-                       (message.role || 'Anonymous') +
-                       "</span> : " +
-                       "<img src='" + userPhotoUrl +"' class ='msgPhoto'>" +
-                       ("<div class="+bouble+">"+message.text || ' ') +
-                       "</div>"
-                    );
+
+                     $("#incomingMessages").append(
+                     "<div class='message'>" +
+                      "<div class='userNameSection'>" +
+                      "<span class='username'>" +
+                       message.role +         
+                      "</span>" +
+                      "<div>"+
+                      "<div class='userMessageSection'>" +
+                      "<img src='" + 
+                      userPhotoUrl + "''>" +
+                      "<div class='" + bubble + "'>" +
+                        message.text +
+                      "/<div>");
+            
                     $("#incomingMessages").scrollTop(
                         $("#incomingMessages")[0].scrollHeight
                     );
